@@ -1,12 +1,13 @@
 #include <windows.h>
+
 #include <iostream>
 
 HHOOK hHook = NULL;
 
 LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam) {
     if (nCode == HC_ACTION) {
-        KBDLLHOOKSTRUCT* pKeyBoard = (KBDLLHOOKSTRUCT*)lParam;
-        int vkCode = pKeyBoard->vkCode;
+        KBDLLHOOKSTRUCT * pKeyBoard = (KBDLLHOOKSTRUCT * ) lParam;
+        int vkCode = pKeyBoard -> vkCode;
 
         switch (wParam) {
         case WM_KEYDOWN:
@@ -20,8 +21,8 @@ LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam) {
                 auto title = new char[titleLen + 1];
                 GetWindowTextA(fg, title, titleLen + 1);
                 if (strcmp(title, "RuneScape") == 0) {
-					Sleep(200);
-				}
+                    Sleep(200);
+                }
             }
             break;
         }
@@ -37,9 +38,9 @@ int main() {
     }
 
     MSG msg;
-    while (GetMessage(&msg, NULL, 0, 0)) {
-        TranslateMessage(&msg);
-        DispatchMessage(&msg);
+    while (GetMessage( & msg, NULL, 0, 0)) {
+        TranslateMessage( & msg);
+        DispatchMessage( & msg);
     }
 
     UnhookWindowsHookEx(hHook);
